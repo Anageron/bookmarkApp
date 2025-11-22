@@ -1,0 +1,25 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  --color-bg: #ffffff;
+  --color-fg: #1C1C1C;
+  --color-fg-hover: #353535;
+  --color-inactive: rgba(28, 28, 28, 0.4);;
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  color: var(--color-fg);
+  background: var( --color-bg);
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
