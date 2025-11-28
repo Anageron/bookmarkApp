@@ -1,0 +1,27 @@
+<template>
+  <div class="index">
+    <h1 class="index__header">Добро пожаловать в Bookmarkly!</h1>
+    <p class="index__description">Чтобы начать пользоваться выберите категорию закладок или создайте новую.</p>
+  </div>
+</template>
+
+
+<style scoped>
+.index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  min-height: calc(75vh - 140px);
+}
+
+.index__header {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.index__description {
+  font-size: 16px;
+}
+</style>

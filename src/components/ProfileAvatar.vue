@@ -16,7 +16,7 @@ const name = computed( ()=> {
 
 <template>
   <div class="profile-avatar">
-    <img class="avatar" src="/public/avatar.png" alt="Изображение пользователя">
+    <img class="avatar" src="/avatar.png" alt="Изображение пользователя">
     <div>Привет, <strong>{{ name }}</strong>!</div>
   </div>
 </template>

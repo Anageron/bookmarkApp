@@ -1,13 +1,25 @@
 import axios from "axios"
+import { useAuthStore } from "./stores/auth.store"
 
 
 export const API_ROUTES = {
   profile : `profile`,
-  categories: 'categories'
+  categories: 'categories',
+  bookmarks: (id: number) => `categories/${id}/bookmarks`,
+  auth: {
+    login: `auth/login`,
+    profile: `auth/profile`
+  }
 }
 
+export function client() {
+  const authStore = useAuthStore()
 
-export const http = axios.create({
+  return axios.create({
   baseURL: "http://localhost:3000/api",
-  timeout:10000
+  timeout:10000,
+  headers: {
+    Authorization: `Bearer ${authStore.getToken}`
+  }
 })
+}

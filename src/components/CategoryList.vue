@@ -3,9 +3,18 @@ import { useCategoryStore } from '@/stores/category.store';
 import { onMounted } from 'vue';
 import ButtonIcon from './ButtonIcon.vue';
 import IconPlus from '@/Icons/IconPlus.vue';
+import { useAuthStore } from '@/stores/auth.store';
+import { useRouter } from 'vue-router';
 
 
 const store = useCategoryStore()
+const authStore = useAuthStore()
+const router = useRouter();
+
+function logout(){
+  authStore.clearToken()
+  router.push({name: 'auth'})
+}
 
 onMounted(() => {
   store.fetchCategory()
@@ -15,12 +24,15 @@ onMounted(() => {
 <template>
   <ul class="list">
     <li class="list-item" v-for="item in store.category" :key="item.id">
-     <a :href="`/${item.alias}`">{{ item.name }}</a>
+      <RouterLink active-class="active-link" :to="`/main/${item.alias}`">{{ item.name }}</RouterLink>
     </li>
     <li>
-      <ButtonIcon @click="store.createCategory" >
+      <ButtonIcon @click="store.createCategory">
         <IconPlus />
       </ButtonIcon>
+    </li>
+    <li class="list-item">
+      <a href="#" @click="logout">Выход</a>
     </li>
   </ul>
 </template>
@@ -35,7 +47,7 @@ onMounted(() => {
 }
 
 .list li {
-    list-style: none;
+  list-style: none;
 }
 
 
@@ -47,9 +59,9 @@ onMounted(() => {
   color: var(--color-fg);
 }
 
-.list-item a:hover {
+.list-item a:hover,
+.list-item a.active-link {
   font-size: 24px;
   font-weight: 700;
 }
-
 </style>

@@ -1,23 +1,30 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { API_ROUTES, http } from '../api'
+import { API_ROUTES, client } from '../api'
 import type { ICategory } from '@/Interfaces/Category.interfaces'
+import { v4 as uuidv4 } from 'uuid'
 
 export const useCategoryStore = defineStore('category', () => {
   const category = ref<ICategory[]>([])
 
   async function fetchCategory() {
-    const { data } = await http.get<ICategory[]>(API_ROUTES.categories)
+    const { data } = await client().get<ICategory[]>(API_ROUTES.categories)
     category.value = data
   }
 
   async function createCategory() {
-    const { data } = await http.post<ICategory>(API_ROUTES.categories,{
+    const { data } = await client().post<ICategory>(API_ROUTES.categories, {
       name: 'Новая категория',
-      alias: 'new'
+      alias: uuidv4(),
     })
     category.value.push(data)
   }
 
-  return { category, fetchCategory, createCategory }
+  function getCategoryByAlias(alias: string | string[] | undefined): ICategory | undefined {
+    if(typeof alias == "string") {
+      return category.value.find( c => c.alias == alias)
+    }
+    return
+  }
+  return { category, fetchCategory, createCategory, getCategoryByAlias }
 })
