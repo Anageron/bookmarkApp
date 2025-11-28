@@ -20,11 +20,24 @@ export const useCategoryStore = defineStore('category', () => {
     category.value.push(data)
   }
 
+  async function updateCategory(name:string, alias:string, id: number) {
+      await client().put<ICategory>(API_ROUTES.categories + '/' + id, {
+      name,
+      alias,
+    })
+    fetchCategory()
+  }
+
+  async function deleteCategory(id: number) {
+      await client().delete<ICategory>(API_ROUTES.categories + '/' + id)
+    fetchCategory()
+  }
+
   function getCategoryByAlias(alias: string | string[] | undefined): ICategory | undefined {
     if(typeof alias == "string") {
       return category.value.find( c => c.alias == alias)
     }
     return
   }
-  return { category, fetchCategory, createCategory, getCategoryByAlias }
+  return { category, fetchCategory, createCategory, getCategoryByAlias, updateCategory, deleteCategory }
 })

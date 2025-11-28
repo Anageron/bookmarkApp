@@ -1,6 +1,7 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --color-bg: #ffffff;
+  --color-bg-hover: #dedede;
   --color-fg: #1C1C1C;
   --color-fg-hover: #353535;
   --color-inactive: rgba(28, 28, 28, 0.4);;

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BookmarkCard from '@/components/BookmarkCard.vue';
+import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { ICategory } from '@/Interfaces/Category.interfaces';
 import { useBookmarkStore } from '@/stores/bookmark.store';
 import { useCategoryStore } from '@/stores/category.store';
@@ -44,8 +46,13 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-Category
- {{ category?.name }}
- {{ bookmarkStore.bookmarks.length }}
-
+  <CategoryHeader v-if="category" :category="category" />
+  <BookmarkCard
+  :id="1"
+  image="/public/avatar.png"
+  title="GitHub - gofiber/fiber: ⚡️ Express inspired web framework written in Go"
+  url="https://purpleschool.ru/"
+  :category_id="1"
+  :created_at="new Date()"
+  />
  </template>

@@ -50,8 +50,6 @@ onMounted(() => {
   list-style: none;
 }
 
-
-
 .list-item a {
   text-decoration: none;
   font-size: 14px;

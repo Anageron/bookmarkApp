@@ -17,6 +17,10 @@ import ProfileAvatar from '@/components/ProfileAvatar.vue';
 </template>
 
 <style scoped>
+main {
+  width: 100%;
+}
+
 .app {
   display: flex;
   min-height: calc(100vh - 140px);
