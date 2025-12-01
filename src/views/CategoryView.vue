@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BookmarkCard from '@/components/BookmarkCard.vue';
+import BookmarkSort from '@/components/bookmarkSort.vue';
 import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { ICategory } from '@/Interfaces/Category.interfaces';
 import { useBookmarkStore } from '@/stores/bookmark.store';
@@ -13,6 +14,7 @@ const categoryStore = useCategoryStore();
 const bookmarkStore = useBookmarkStore();
 const category = ref<ICategory>();
 
+
 onMounted(() => {
   categoryStore.fetchCategory();
 })
@@ -24,7 +26,7 @@ watch(() =>  ({
 (data)=> {
   category.value = categoryStore.getCategoryByAlias(data.alias)
   if(category.value)
-  bookmarkStore.fetchBookmarks(category.value.id)
+  bookmarkStore.fetchBookmarks(category.value.id, bookmarkStore.activeSort)
 })
 
 onBeforeMount(async () => {
@@ -42,17 +44,31 @@ onBeforeMount(async () => {
 })
 
 
-
+function sortBookmarks(sort:string) {
+  bookmarkStore.activeSort = sort
+  if(category.value){
+    bookmarkStore.fetchBookmarks(category.value.id, bookmarkStore.activeSort)
+  }
+}
 </script>
 
 <template>
   <CategoryHeader v-if="category" :category="category" />
+  <BookmarkSort :option = bookmarkStore.activeSort  @sort="sortBookmarks"/>
+  <div class="categoty-list">
   <BookmarkCard
-  :id="1"
-  image="/public/avatar.png"
-  title="GitHub - gofiber/fiber: ⚡️ Express inspired web framework written in Go"
-  url="https://purpleschool.ru/"
-  :category_id="1"
-  :created_at="new Date()"
+  v-for="item in bookmarkStore.bookmarks"
+  :key="item.id"
+  v-bind="item"
   />
+  </div>
  </template>
+
+
+<style scoped>
+.categoty-list {
+  margin-block-end: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+</style>

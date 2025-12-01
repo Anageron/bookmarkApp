@@ -4,5 +4,5 @@ export interface IBookMark {
   url: string;
   title:string;
   image:string;
-  created_at: Date;
+  created_at: string;
 }

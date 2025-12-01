@@ -3,8 +3,15 @@ import type { IBookMark } from '@/Interfaces/bookmart.interfaces'
 import ButtonIconBig from './ButtonIconBig.vue'
 import IconDeleteWhite from '@/Icons/IconDeleteWhite.vue'
 import IconLink from '@/Icons/IconLink.vue'
+import { useBookmarkStore } from '@/stores/bookmark.store';
 
-const { title, image } = defineProps<IBookMark>()
+const { id, title, image, url, category_id } = defineProps<IBookMark>()
+const bookmarkStore = useBookmarkStore();
+
+function openLink() {
+  window.open(url, '_blank' )
+}
+
 </script>
 
 <template>
@@ -15,10 +22,10 @@ const { title, image } = defineProps<IBookMark>()
     </div>
 
     <div class="bookmark-card__footer">
-      <ButtonIconBig>
+      <ButtonIconBig @click="() => bookmarkStore.deleteBookmark(id, category_id)">
         <IconDeleteWhite />
       </ButtonIconBig>
-      <ButtonIconBig>
+      <ButtonIconBig @click="openLink">
         <IconLink />
       </ButtonIconBig>
     </div>
@@ -27,7 +34,6 @@ const { title, image } = defineProps<IBookMark>()
 
 <style scoped>
 .bookmark-card {
-  max-width: 400px;
   border-radius: 30px;
   box-shadow: 0 10px 10px 0 rgba(245, 245, 247, 0.1);
   background: var(--color-fg);
@@ -42,6 +48,7 @@ const { title, image } = defineProps<IBookMark>()
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20px;
+  background-position: center;
 }
 
 .bookmark-card__title {
