@@ -35,7 +35,7 @@ function deleteCategory() {
   <div class="category-header">
     <h1 v-if="!isEdited">{{ category.name }}</h1>
     <div v-if="isEdited" class="category-header__edit">
-      <InputDefault v-model="newCategoryName" />
+      <InputDefault v-model="newCategoryName" is-focused/>
       <ButtonIcon @click="updateCategory">
         <IconOK />
       </ButtonIcon>

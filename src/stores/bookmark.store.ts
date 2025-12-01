@@ -21,6 +21,13 @@ export const useBookmarkStore = defineStore('bookmarks', () => {
     fetchBookmarks(categoryId, activeSort.value);
   }
 
+  async function addBookmark(category_id: number, url: string) {
+    const { data } = await client().post<IBookMark>(API_ROUTES.bookmarks.create, {
+      category_id,
+      url
+    })
+    bookmarks.value.push(data)
+  }
 
-  return { bookmarks, fetchBookmarks, deleteBookmark, activeSort }
+  return { bookmarks, fetchBookmarks, deleteBookmark, activeSort, addBookmark }
 })
